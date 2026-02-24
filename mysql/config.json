@@ -1,0 +1,11 @@
+{
+  "database": {
+    "host": "localhost",
+    "port": 3306,
+    "user": "root",
+    "password": "",
+    "database": "miniprogram_store",
+    "charset": "utf8mb4",
+    "timezone": "+08:00"
+  }
+}

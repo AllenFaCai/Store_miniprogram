@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台登录 - 商城管理系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1890ff',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                    },
+                },
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .btn {
+                @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 justify-center;
+            }
+            .btn-primary {
+                @apply bg-primary text-white hover:bg-primary/90;
+            }
+            .form-input {
+                @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+            }
+            .form-label {
+                @apply block text-sm font-medium text-gray-700 mb-1;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md p-6">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+            <!-- 品牌标识 -->
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa fa-shopping-bag text-primary text-2xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">商城管理系统</h1>
+                <p class="text-gray-500 mt-2">欢迎回来，请登录您的账号</p>
+            </div>
+            
+            <!-- 登录表单 -->
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="username" class="form-label">用户名</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa fa-user text-gray-400"></i>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            class="form-input pl-10"
+                            placeholder="请输入用户名"
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="password" class="form-label">密码</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa fa-lock text-gray-400"></i>
+                        </div>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input pl-10"
+                            placeholder="请输入密码"
+                            required
+                        >
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <button 
+                                type="button" 
+                                class="text-gray-400 hover:text-gray-600"
+                                id="toggle-password"
+                            >
+                                <i class="fa fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="remember" 
+                            class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                        >
+                        <label for="remember" class="ml-2 block text-sm text-gray-700">
+                            记住我
+                        </label>
+                    </div>
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-primary hover:text-primary/80">
+                            忘记密码？
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary w-full"
+                    >
+                        <i class="fa fa-sign-in"></i>
+                        <span>登录</span>
+                    </button>
+                </div>
+            </form>
+            
+            <!-- 底部信息 -->
+            <div class="text-center mt-8">
+                <p class="text-sm text-gray-500">
+                    &copy; 2024 商城管理系统. 保留所有权利.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 密码显示/隐藏切换
+            const togglePassword = document.getElementById('toggle-password');
+            const password = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                
+                // 切换图标
+                const icon = togglePassword.querySelector('i');
+                if (type === 'password') {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+            
+            // 登录表单提交
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // 模拟登录验证
+                if (username === 'admin' && password === 'admin123') {
+                    // 登录成功，跳转到后台管理页面
+                    window.location.href = 'index.html';
+                } else {
+                    // 登录失败，显示错误信息
+                    alert('用户名或密码错误，请重试！');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
